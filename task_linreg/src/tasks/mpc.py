@@ -67,10 +67,10 @@ def linreg():
     # Создаём mpc-тензоры
     X_train_party_0 = crypten.load_from_party(config.X_TRAIN_PARTY_0_PATH, src=0)
     X_train_party_1 = crypten.load_from_party(config.X_TRAIN_PARTY_1_PATH, src=1)
-    X_test  = crypten.load_from_party(config.X_TEST_PATH, src=0)
+    X_test_enc  = crypten.load_from_party(config.X_TEST_PATH, src=0)
     y_train_party_0 = crypten.load_from_party(config.Y_TRAIN_PARTY_0_PATH, src=0)
     y_train_party_1 = crypten.load_from_party(config.Y_TRAIN_PARTY_1_PATH, src=1)
-    y_test  = crypten.load_from_party(config.Y_TEST_PATH, src=0)
+    y_test_enc  = crypten.load_from_party(config.Y_TEST_PATH, src=0)
 
     X_train_enc = crypten.cat([X_train_party_0, X_train_party_1], dim=0)
     y_train_enc = crypten.cat([y_train_party_0, y_train_party_1], dim=0)
