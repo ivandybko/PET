@@ -1,0 +1,32 @@
+services:
+  worker1:
+    build: .
+    command: python -m worker --rank 0 --world_size 2 call tasks.party:main 
+    environment:
+      # communicator
+      - RENDEZVOUS=env://
+      - MASTER_ADDR=worker1
+      - MASTER_PORT=29500
+      - WORLD_SIZE=2
+      - RANK=0
+      # logging
+      - LOGLEVEL=INFO
+      - PYTHONUNBUFFERED=1
+    volumes:
+     - ./data/party0:/app/data/party0 
+  worker2:
+    build: .
+    command: python -m worker --rank 1 --world_size 2 call tasks.party:main
+    environment:
+      # communicator
+      - RENDEZVOUS=env://
+      - MASTER_ADDR=worker1
+      - MASTER_PORT=29500
+      - WORLD_SIZE=2
+      - RANK=1
+      # logging
+      - LOGLEVEL=INFO
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./data/party1:/app/data/party1 
+
